@@ -1,21 +1,14 @@
-  const inputs = document.querySelectorAll('.code');
-inputs[0].focus();
-inputs.forEach((input,index)=>{
-	input.addEventListener('input',(e)=>{
-		const value=e.target.value;
-		if(value&&index<inputs.length-1){
-			inputs[index+1].focus();
-		}
-	});
+const codes = document.querySelectorAll('.code');
 
-      input.addEventListener('keydown', (e) =>{
-		  if(e.key==="Backspace"){
-			  if(input.value===""&&index>0){
-				  inputs[index-1].focus();
-				  inputs[index-1].value="";
-			  }else{
-				  input.value="";
-			  }
-		  }
-	  });
+codes[0].focus(); // start focus on first box
+
+codes.forEach((code, idx) => {
+  code.addEventListener('keydown', (e) => {
+    if (e.key >= 0 && e.key <= 9) {
+      codes[idx].value = '';
+      setTimeout(() => codes[idx + 1]?.focus(), 10);
+    } else if (e.key === 'Backspace') {
+      setTimeout(() => codes[idx - 1]?.focus(), 10);
+    }
+  });
 });
